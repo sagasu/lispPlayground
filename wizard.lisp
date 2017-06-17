@@ -22,3 +22,6 @@
   `(there is a ,(caddr edge) going ,(cadr edge) from here.))
 
 (describe-path '(garden west door))
+
+(defun describe-paths (location edges)
+  (apply #'append (mapcar #'describe-path (cdr (assoc location edges)))))
