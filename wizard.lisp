@@ -34,3 +34,8 @@
                                    (bucket living-room)
                                    (chain garden)
                                    (frog garden)))
+
+(defun objects-at (loc objs obj-loc)
+    (labels ((is-at (obj)
+               (eq (cadr (assoc obj obj-loc)) loc)))
+        (remove-if-not #'is-at objs)))
