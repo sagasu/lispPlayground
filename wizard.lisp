@@ -46,3 +46,17 @@
       (apply #'append (mapcar #'describe-obj (objects-at loc objs obj-loc)))))
 
 (defparameter *location* 'living-room)
+
+(defun look ()
+  (append (describe-location *location* *nodes*)
+          (describe-paths *location* *edges*)
+          (describe-objects *location* *objects* *object-locations*)))
+
+(defun walk (direction)
+  (labels ((correct-way (edge)
+             (eq (cadr edge) direction)))
+    (let ((next (find-if #'correct-way (cdr (assoc *location* *edges*)))))
+      (if next
+          (progn (setf *location* (car next))
+                 (look))
+          '(you cannot go that way.)))))
